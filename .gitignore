@@ -1,4 +1,5 @@
 .*
+!.empty
 !.gitignore
 Debian_CPANTS.txt
 blib/
