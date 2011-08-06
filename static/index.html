@@ -1,0 +1,560 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>site techie</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+<style type="text/css"> 
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+}
+body {
+	margin: 0 auto;
+	text-align: center;
+}
+h1, h2 {
+	color: #ccc;
+	font-family: "Trebuchet MS", verdana,sans-serif;
+}
+h1 {
+	font-size: 72px;
+}
+h2 {
+	font-size: 24px;
+}
+a, a:hover {
+	color: rgb(109,185,9);
+	text-decoration: none;
+}
+a:hover {
+	color: #CC0000;
+	text-decoration: underline;
+}
+a:link {
+    text-decoration: none;
+    }
+
+#content {
+    width: 600px;
+	margin: 0 auto;
+	text-align: center;
+	position:relative;
+}
+#arrow-peter {
+	position: absolute;
+	top: 20px;
+	left: -20px;
+	display: none;
+}
+#you {
+	display: none;
+ 
+}
+#avatar {
+	position:absolute;
+	left:0px;
+	top:100px;
+}
+#avatar a {
+	outline: none;
+	border: 0px;
+	text-decoration: none;	
+}
+#airlock {
+	text-align: left;
+	padding: 120px 0px 0px 220px;
+	color: #9a9a9a;
+}
+#cbody {
+	font-size: 0.95em;
+	font-family: "Trebuchet MS", verdana,sans-serif;
+    font-weight: bold;
+	text-align: left;
+	padding: 48px 4px;
+}
+
+#panel {
+	width: 460px;
+	height: 400px;
+	position: absolute;
+	top: -400px;
+	left: 140px;
+    z-index: 200;
+	background-color: #FFFFFF;
+}
+#panel-content {
+    position: relative;
+}
+#panel-head {
+    top: 20px;
+    left: 100px;
+	position: absolute;
+	text-align: left;
+}
+#panel-result {
+	width: 171px;
+	height: 240px;
+	position: absolute;
+    top: 100px;
+    left: 0px;
+}
+#panel-choice {
+	width: 220px;
+	height: 280px;
+	position: absolute;
+    top: 68px;
+    left: 210px;
+}
+
+ul.tabs {
+	margin: 0;
+	padding: 0;
+	float: left;
+	list-style: none;
+	height: 32px;
+}
+ul.tabs li {
+	float: left;
+	margin: 0;
+	padding: 0 0 4px 0;
+	height: 31px; /*--Subtract 1px from the height of the unordered list--*/
+	line-height: 31px; /*--Vertically aligns the text within the tab--*/
+ 
+	overflow: hidden;
+	position: relative;
+    border-bottom: 1px solid #999;
+}
+ul.tabs li a {
+	text-decoration: none;
+	color: #000;
+	display: block;
+	font-size: 1.2em;
+	outline: none;
+}
+ 
+ul.tabs li.active  {
+	background: #fff;
+	border: 1px solid #999;
+	border-bottom: none; 
+}
+ 
+.tab_container {
+	border: 1px solid #999;
+	border-top: none;
+	overflow-y:auto;
+	overflow-x:hidden;
+    height:240px;
+	clear: both;
+	float: left;
+    width: 216px;
+	background2: #fff;
+}
+.tab_content {
+	padding-top: 18px;
+}
+ 
+#loader {
+    width: 40px;
+    height: 40px;
+    display:none;
+    position: absolute;
+    top: 150px;
+    left: 0px;
+}
+
+#loader.loading {
+    background: url(/images/spinner.gif) no-repeat center center transparent;
+}
+
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript"> 
+<!--
+var editMode = 0;
+$(document).ready(function() {
+ 
+	$(".tab_content").hide(); //Hide all content
+	$("ul.tabs li:first").addClass("active").show(); //Activate first tab
+	$(".tab_content:first").show(); //Show first tab content
+ 
+	$("ul.tabs li").click(function() {
+ 
+		$("ul.tabs li").removeClass("active"); //Remove any "active" class
+		$(this).addClass("active"); //Add "active" class to selected tab
+		$(".tab_content").hide(); //Hide all tab content
+ 
+		var activeTab = $(this).find("a").attr("href"); //Find the href attribute value to identify the active tab + content
+		$(activeTab).fadeIn(); //Fade in the active ID content
+		return false;
+	});
+ 
+	$(".choice").click(function(e) {
+        e.preventDefault();
+        var item = $(this).attr('item');
+        var choice = $(this).attr('choice');
+        var src = '/?' + item + '=' + choice + '&rand=' + Math.random();
+        $('#loader').show();
+
+        $("#target")
+        // once the image has loaded, execute this code
+        .load(function () {
+            $('#loader').fadeOut(100);
+            })
+        .error(function () {
+            // notify the user that the image could not be loaded
+            })
+        // *finally*, set the src attribute of the new image to our image
+        .attr('src', src);
+
+        return false;
+        });
+ 
+	$("#avatar").mouseenter(function(e) {
+		e.preventDefault();
+        if(editMode) {
+          editMode = 0;
+          $("#panel").animate({ top: -400 }, 600, 'linear', function() {
+              $('#arrow-peter').fadeOut(800, function() {});
+              $('#you').fadeOut(800, function() {});
+              });
+	      $("#avatar").animate({ left: '+=50' }, 200, 'linear', function() {});
+	      $("#sitetechie").attr('src', '/images/avatar2.gif');
+        }
+        else {
+          editMode = 1;
+          $("#sitetechie").attr('src', '/images/avatar.gif');
+ 
+		  $("#panel").animate({ top: 0 }, 600, 'linear', function() {
+            $('#arrow-peter').fadeIn(800, function() {});
+		  });
+  		  $("#avatar").animate({ left: '-=50' }, 200, 'linear', function() {
+			$('#you').delay(800).fadeIn(800, function() {});
+		  });
+        }
+        return false;
+	});
+});
+-->
+</script>
+</head>
+<body>
+<div id="content">
+<img id="arrow-peter" src="/images/arrow-peter.gif">
+<div id="avatar">
+  <img id="sitetechie" alt="Peter de Vos" src="/images/avatar2.gif">
+</div>
+ 
+<div id="airlock">
+  <div id="chead"><h1>site techie</h1><h2>Your friendly web professional</h2></div>
+  <div id="cbody"><a href="http://sitecorporation.com/" title="Site Corporation">See what I do</a>, <a href="http://github.com/sitetechie" title="Github">download my code</a> or <script type="text/javascript">
+//<![CDATA[
+<!--
+var x="function f(x){var i,o=\"\",ol=x.length,l=ol;while(x.charCodeAt(l/13)!" +
+"=33){try{x+=x;l+=l;}catch(e){}}for(i=l-1;i>=0;i--){o+=x.charAt(i);}return o" +
+".substr(0,ol);}f(\")45,\\\"730\\\\320\\\\130\\\\010\\\\200\\\\!771\\\\2 syl" +
+"wc6{}3ftw1,Qadi'mnnfawguir\\\\=320\\\\720\\\\620\\\\430\\\\020\\\\U*H120\\\\"+
+"730\\\\600\\\\030\\\\400\\\\OL1100\\\\400\\\\t\\\\Gr\\\\610\\\\610\\\\600\\" +
+"\\100\\\\720\\\\700\\\\520\\\\t\\\\,630\\\\207?1b8\\\"\\\\9=2?s410\\\\r((>#" +
+"j(ten+(&6(2H020\\\\IR^WL[XR\\\"(f};o nruter};))++y(^)i(tAedoCrahc.x(edoCrah" +
+"Cmorf.gnirtS=+o;721=%y{)++i;l<i;0=i(rof;htgnel.x=l,\\\"\\\"=o,i rav{)y,x(f " +
+"noitcnuf\")"                                                                 ;
+while(x=eval(x));
+//-->
+//]]>
+</script>
+  </div>
+</div><!-- /airlock -->
+
+
+<div id="panel">
+    <div id="panel-content">
+      <div id="panel-head"><img id="you" src="/images/arrow-you.gif"></div>
+      <div id="panel-result">
+          <div id="loader" class="loading"></div>
+          <img id="target" width="171" height="240" src="/?setup=1">
+      </div>
+      <div id="panel-choice">
+<div id="tabs">
+<ul class="tabs">
+    <li><a href="#tab1"><img src="/images/character/icons/neck.gif"></a></li>
+    <li><a href="#tab2"><img src="/images/character/icons/face.gif"></a></li>
+    <li><a href="#tab3"><img src="/images/character/icons/eyes.gif"></a></li>
+    <li><a href="#tab4"><img src="/images/character/icons/mouth.gif"></a></li>
+    <li><a href="#tab5"><img src="/images/character/icons/nose.gif"></a></li>
+    <li><a href="#tab6"><img src="/images/character/icons/ears.gif"></a></li>    
+</ul>
+ 
+<div class="tab_container">
+    <div id="tab1" class="tab_content">
+<MAP NAME="NeckMap">
+    <AREA SHAPE="RECT" COORDS="132,139,183,167" HREF="face.html?neck=6" class="choice" choice="6" item="neck">
+    <AREA SHAPE="RECT" COORDS="131,114,182,139" HREF="face.html?neck=4" class="choice" choice="4" item="neck">
+    <AREA SHAPE="RECT" COORDS="130,86,183,114" HREF="face.html?neck=11" class="choice" choice="11" item="neck">
+    <AREA SHAPE="RECT" COORDS="130,58,183,87" HREF="face.html?neck=8" class="choice" choice="8" item="neck">
+    <AREA SHAPE="RECT" COORDS="132,29,184,57" HREF="face.html?neck=1" class="choice" choice="1" item="neck">
+    <AREA SHAPE="RECT" COORDS="131,0,184,30" HREF="face.html?neck=3" class="choice" choice="3" item="neck">
+    <AREA SHAPE="RECT" COORDS="69,1,126,29" HREF="face.html?neck=12" class="choice" choice="12" item="neck">
+    <AREA SHAPE="RECT" COORDS="70,31,127,54" HREF="face.html?neck=13" class="choice" choice="13" item="neck">
+    <AREA SHAPE="RECT" COORDS="71,54,128,78" HREF="face.html?neck=14" class="choice" choice="14" item="neck">
+    <AREA SHAPE="RECT" COORDS="72,81,127,110" HREF="face.html?neck=17" class="choice" choice="17" item="neck">
+    <AREA SHAPE="RECT" COORDS="73,112,128,138" HREF="face.html?neck=20" class="choice" choice="20" item="neck">
+    <AREA SHAPE="RECT" COORDS="73,137,126,165" HREF="face.html?neck=18" class="choice" choice="18" item="neck">
+    <AREA SHAPE="RECT" COORDS="133,169,183,199" HREF="face.html?neck=7" class="choice" choice="7" item="neck">
+    <AREA SHAPE="RECT" COORDS="74,167,126,199" HREF="face.html?neck=19" class="choice" choice="19" item="neck">
+    <AREA SHAPE="RECT" COORDS="17,172,61,198" HREF="face.html?neck=21" class="choice" choice="21" item="neck">
+    <AREA SHAPE="RECT" COORDS="18,140,62,172" HREF="face.html?neck=16" class="choice" choice="16" item="neck">
+    <AREA SHAPE="RECT" COORDS="18,112,64,140" HREF="face.html?neck=15" class="choice" choice="15" item="neck">
+    <AREA SHAPE="RECT" COORDS="17,85,67,111" HREF="face.html?neck=10" class="choice" choice="10" item="neck">
+    <AREA SHAPE="RECT" COORDS="17,60,66,85" HREF="face.html?neck=9" class="choice" choice="9" item="neck">
+    <AREA SHAPE="RECT" COORDS="16,33,66,60" HREF="face.html?neck=5" class="choice" choice="5" item="neck">
+    <AREA SHAPE="RECT" COORDS="16,0,66,33" HREF="#" class="choice" choice="2" item="neck">
+</MAP><img src="/images/character/index/necks_200x200.gif" width="200" height="200" alt="" border="0" usemap="#NeckMap">
+    </div>
+    <div id="tab2" class="tab_content">
+<MAP NAME="FaceMap">
+    <AREA SHAPE="RECT" COORDS="157,64,199, 112" HREF="face.html?face=18" class="choice" choice="18" item="face">
+    <AREA SHAPE="RECT" COORDS="163,18,199, 62" HREF="face.html?face=17" class="choice" choice="17" item="face">
+    <AREA SHAPE="RECT" COORDS="116,144,154, 186" HREF="face.html?face=16" class="choice" choice="16" item="face">
+    <AREA SHAPE="RECT" COORDS="118,97,155, 143" HREF="face.html?face=15" class="choice" choice="15" item="face">
+    <AREA SHAPE="RECT" COORDS="120,53,156, 97" HREF="face.html?face=14" class="choice" choice="14" item="face">
+    <AREA SHAPE="RECT" COORDS="120,3,153, 49" HREF="face.html?face=13" class="choice" choice="13" item="face">
+    <AREA SHAPE="RECT" COORDS="81,148,115, 188" HREF="face.html?face=12" class="choice" choice="12" item="face">
+    <AREA SHAPE="RECT" COORDS="86,95,117, 141" HREF="face.html?face=11" class="choice" choice="11" item="face">
+    <AREA SHAPE="RECT" COORDS="156,114,199, 160" HREF="face.html?face=10" class="choice" choice="10" item="face">
+    <AREA SHAPE="RECT" COORDS="80,0,115, 46" HREF="face.html?face=9" class="choice" choice="9" item="face">
+    <AREA SHAPE="RECT" COORDS="39,148,77, 186" HREF="face.html?face=8" class="choice" choice="8" item="face">
+    <AREA SHAPE="RECT" COORDS="42,97,78, 142" HREF="face.html?face=7" class="choice" choice="7" item="face">
+    <AREA SHAPE="RECT" COORDS="42,50,77, 98" HREF="face.html?face=6" class="choice" choice="6" item="face">
+    <AREA SHAPE="RECT" COORDS="40,3,77, 48" HREF="face.html?face=5" class="choice" choice="5" item="face">
+    <AREA SHAPE="RECT" COORDS="83,49,114, 94" HREF="face.html?face=4" class="choice" choice="4" item="face">
+    <AREA SHAPE="RECT" COORDS="4,122,35, 167" HREF="face.html?face=3" class="choice" choice="3" item="face">
+    <AREA SHAPE="RECT" COORDS="2,73,38, 117" HREF="face.html?face=2" class="choice" choice="2" item="face">
+    <AREA SHAPE="RECT" COORDS="1,26,39, 71" HREF="face.html?face=1" class="choice" choice="1" item="face">
+</MAP><img src="/images/character/index/faces_200.gif" width="200" height="190" alt="" border="0" usemap="#FaceMap">
+    </div>
+    <div id="tab3" class="tab_content">
+<MAP NAME="EyesMap">
+    <AREA SHAPE="RECT" COORDS="138, 576, 199, 598" HREF="face.html?eyes=1" class="choice" choice="1" item="eye">
+    <AREA SHAPE="RECT" COORDS="139, 546, 199, 569" HREF="face.html?eyes=2" class="choice" choice="2" item="eye">
+    <AREA SHAPE="RECT" COORDS="135, 518, 199, 547" HREF="face.html?eyes=3" class="choice" choice="3" item="eye">
+    <AREA SHAPE="RECT" COORDS="139, 492, 198, 517" HREF="face.html?eyes=4" class="choice" choice="4" item="eye">
+    <AREA SHAPE="RECT" COORDS="138, 459, 199, 486" HREF="face.html?eyes=5" class="choice" choice="5" item="eye">
+    <AREA SHAPE="RECT" COORDS="70, 565, 128, 597" HREF="face.html?eyes=31" class="choice" choice="31" item="eye">
+    <AREA SHAPE="RECT" COORDS="140, 432, 199, 460" HREF="face.html?eyes=6" class="choice" choice="6" item="eye">
+    <AREA SHAPE="RECT" COORDS="139, 407, 199, 432" HREF="face.html?eyes=7" class="choice" choice="7" item="eye">
+    <AREA SHAPE="RECT" COORDS="139, 380, 199, 406" HREF="face.html?eyes=8" class="choice" choice="8" item="eye">
+    <AREA SHAPE="RECT" COORDS="71, 532, 132, 561" HREF="face.html?eyes=32" class="choice" choice="32" item="eye">
+    <AREA SHAPE="RECT" COORDS="68, 504, 136, 531" HREF="face.html?eyes=33" class="choice" choice="33" item="eye">
+    <AREA SHAPE="RECT" COORDS="73, 483, 136, 504" HREF="face.html?eyes=34" class="choice" choice="34" item="eye">
+    <AREA SHAPE="RECT" COORDS="72, 455, 134, 484" HREF="face.html?eyes=35" class="choice" choice="35" item="eye">
+    <AREA SHAPE="RECT" COORDS="72, 431, 135, 456" HREF="face.html?eyes=36" class="choice" choice="36" item="eye">
+    <AREA SHAPE="RECT" COORDS="74, 408, 133, 431" HREF="face.html?eyes=37" class="choice" choice="37" item="eye">
+    <AREA SHAPE="RECT" COORDS="74, 384, 125, 409" HREF="face.html?eyes=38" class="choice" choice="38" item="eye">
+    <AREA SHAPE="RECT" COORDS="6, 580, 62, 598" HREF="face.html?eyes=45" class="choice" choice="45" item="eye">
+    <AREA SHAPE="RECT" COORDS="3, 554, 62, 577" HREF="face.html?eyes=46" class="choice" choice="46" item="eye">
+    <AREA SHAPE="RECT" COORDS="5, 532, 63, 554" HREF="face.html?eyes=47" class="choice" choice="47" item="eye">
+    <AREA SHAPE="RECT" COORDS="4, 508, 65, 531" HREF="face.html?eyes=48" class="choice" choice="48" item="eye">
+    <AREA SHAPE="RECT" COORDS="1, 483, 67, 509" HREF="face.html?eyes=49" class="choice" choice="49" item="eye">
+    <AREA SHAPE="RECT" COORDS="0, 458, 68, 482" HREF="face.html?eyes=50" class="choice" choice="50" item="eye">
+    <AREA SHAPE="RECT" COORDS="0, 432, 64, 457" HREF="face.html?eyes=51" class="choice" choice="51" item="eye">
+    <AREA SHAPE="RECT" COORDS="2, 406, 62, 432" HREF="face.html?eyes=52" class="choice" choice="52" item="eye">
+    <AREA SHAPE="RECT" COORDS="2, 379, 58, 405" HREF="face.html?eyes=53" class="choice" choice="53" item="eye">
+    <AREA SHAPE="RECT" COORDS="136, 356, 199, 380" HREF="face.html?eyes=9" class="choice" choice="9" item="eye">
+    <AREA SHAPE="RECT" COORDS="136, 334, 198, 357" HREF="face.html?eyes=10" class="choice" choice="10" item="eye">
+    <AREA SHAPE="RECT" COORDS="134, 305, 196, 331" HREF="face.html?eyes=11" class="choice" choice="11" item="eye">
+    <AREA SHAPE="RECT" COORDS="138, 264, 195, 305" HREF="face.html?eyes=12" class="choice" choice="12" item="eye">
+    <AREA SHAPE="RECT" COORDS="137, 237, 194, 263" HREF="face.html?eyes=13" class="choice" choice="13" item="eye">
+    <AREA SHAPE="RECT" COORDS="137, 201, 196, 235" HREF="face.html?eyes=14" class="choice" choice="14" item="eye">
+    <AREA SHAPE="RECT" COORDS="138, 177, 197, 200" HREF="face.html?eyes=15" class="choice" choice="15" item="eye">
+    <AREA SHAPE="RECT" COORDS="139, 149, 198, 176" HREF="face.html?eyes=16" class="choice" choice="16" item="eye">
+    <AREA SHAPE="RECT" COORDS="141, 122, 199, 148" HREF="face.html?eyes=17" class="choice" choice="17" item="eye">
+    <AREA SHAPE="RECT" COORDS="143, 94, 199, 122" HREF="face.html?eyes=18" class="choice" choice="18" item="eye">
+    <AREA SHAPE="RECT" COORDS="140, 58, 199, 87" HREF="face.html?eyes=19" class="choice" choice="19" item="eye">
+    <AREA SHAPE="RECT" COORDS="3, 351, 60, 379" HREF="face.html?eyes=54" class="choice" choice="54" item="eye">
+    <AREA SHAPE="RECT" COORDS="74, 361, 126, 384" HREF="face.html?eyes=39" class="choice" choice="39" item="eye">
+    <AREA SHAPE="RECT" COORDS="73, 335, 125, 362" HREF="face.html?eyes=40" class="choice" choice="40" item="eye">
+    <AREA SHAPE="RECT" COORDS="73, 307, 127, 334" HREF="face.html?eyes=41" class="choice" choice="41" item="eye">
+    <AREA SHAPE="RECT" COORDS="71, 284, 127, 308" HREF="face.html?eyes=42" class="choice" choice="42" item="eye">
+    <AREA SHAPE="RECT" COORDS="74, 267, 128, 284" HREF="face.html?eyes=43" class="choice" choice="43" item="eye">
+    <AREA SHAPE="RECT" COORDS="72, 244, 129, 267" HREF="face.html?eyes=44" class="choice" choice="44" item="eye">
+    <AREA SHAPE="RECT" COORDS="71, 216, 133, 243" HREF="face.html?eyes=22" class="choice" choice="22" item="eye">
+    <AREA SHAPE="RECT" COORDS="70, 190, 133, 214" HREF="face.html?eyes=23" class="choice" choice="23" item="eye">
+    <AREA SHAPE="RECT" COORDS="67, 161, 134, 190" HREF="face.html?eyes=24" class="choice" choice="24" item="eye">
+    <AREA SHAPE="RECT" COORDS="73, 135, 130, 160" HREF="face.html?eyes=25" class="choice" choice="25" item="eye">
+    <AREA SHAPE="RECT" COORDS="75, 107, 126, 133" HREF="face.html?eyes=26" class="choice" choice="26" item="eye">
+    <AREA SHAPE="RECT" COORDS="71, 83, 129, 108" HREF="face.html?eyes=27" class="choice" choice="27" item="eye">
+    <AREA SHAPE="RECT" COORDS="73, 59, 130, 84" HREF="face.html?eyes=28" class="choice" choice="28" item="eye">
+    <AREA SHAPE="RECT" COORDS="3, 327, 60, 351" HREF="face.html?eyes=55" class="choice" choice="55" item="eye">
+    <AREA SHAPE="RECT" COORDS="3, 304, 60, 328" HREF="face.html?eyes=56" class="choice" choice="56" item="eye">
+    <AREA SHAPE="RECT" COORDS="4, 281, 59, 306" HREF="face.html?eyes=57" class="choice" choice="57" item="eye">
+    <AREA SHAPE="RECT" COORDS="2, 257, 60, 282" HREF="face.html?eyes=58" class="choice" choice="58" item="eye">
+    <AREA SHAPE="RECT" COORDS="1, 233, 57, 258" HREF="face.html?eyes=59" class="choice" choice="59" item="eye">
+    <AREA SHAPE="RECT" COORDS="2, 209, 57, 235" HREF="face.html?eyes=60" class="choice" choice="60" item="eye">
+    <AREA SHAPE="RECT" COORDS="4, 184, 58, 209" HREF="face.html?eyes=61" class="choice" choice="61" item="eye">
+    <AREA SHAPE="RECT" COORDS="4, 153, 55, 184" HREF="face.html?eyes=62" class="choice" choice="62" item="eye">
+    <AREA SHAPE="RECT" COORDS="3, 121, 59, 153" HREF="face.html?eyes=63" class="choice" choice="63" item="eye">
+    <AREA SHAPE="RECT" COORDS="6, 90, 59, 119" HREF="face.html?eyes=64" class="choice" choice="64" item="eye">
+    <AREA SHAPE="RECT" COORDS="4, 65, 55, 89" HREF="face.html?eyes=65" class="choice" choice="65" item="eye">
+    <AREA SHAPE="RECT" COORDS="5, 45, 61, 65" HREF="face.html?eyes=66" class="choice" choice="66" item="eye">
+    <AREA SHAPE="RECT" COORDS="143, 27, 199, 54" HREF="face.html?eyes=20" class="choice" choice="20" item="eye">
+    <AREA SHAPE="RECT" COORDS="69, 28, 137, 53" HREF="face.html?eyes=29" class="choice" choice="29" item="eye">
+    <AREA SHAPE="RECT" COORDS="0, 24, 62, 46" HREF="face.html?eyes=67" class="choice" choice="67" item="eye">
+    <AREA SHAPE="RECT" COORDS="140, 0, 197, 27" HREF="face.html?eyes=21" class="choice" choice="21" item="eye">
+    <AREA SHAPE="RECT" COORDS="66, 0, 136, 28" HREF="face.html?eyes=30" class="choice" choice="30" item="eye">
+    <AREA SHAPE="RECT" COORDS="0, 0, 66, 22" HREF="face.html?eyes=68" class="choice" choice="68" item="eye">
+</MAP><img src="/images/character/index/eyes_200.gif" alt="" width="200" height="600" border="0" usemap="#EyesMap">
+    </div>
+    <div id="tab4" class="tab_content">
+<MAP NAME="MouthMap">
+    <AREA SHAPE="RECT" COORDS="164, 217, 195, 244" HREF="face.html?lips=28" class="choice" choice="28" item="lip">
+    <AREA SHAPE="RECT" COORDS="161, 249, 196, 273" HREF="face.html?lips=27" class="choice" choice="27" item="lip">
+    <AREA SHAPE="RECT" COORDS="164, 280, 199, 306" HREF="face.html?lips=26" class="choice" choice="26" item="lip">
+    <AREA SHAPE="RECT" COORDS="164, 308, 199, 329" HREF="face.html?lips=25" class="choice" choice="25" item="lip">
+    <AREA SHAPE="RECT" COORDS="166, 330, 199, 355" HREF="face.html?lips=24" class="choice" choice="24" item="lip">
+    <AREA SHAPE="RECT" COORDS="45, 313, 82, 338" HREF="face.html?lips=23" class="choice" choice="23" item="lip">
+    <AREA SHAPE="RECT" COORDS="125, 197, 160, 224" HREF="face.html?lips=22" class="choice" choice="22" item="lip">
+    <AREA SHAPE="RECT" COORDS="126, 229, 158, 251" HREF="face.html?lips=21" class="choice" choice="21" item="lip">
+    <AREA SHAPE="RECT" COORDS="126, 250, 160, 275" HREF="face.html?lips=20" class="choice" choice="20" item="lip">
+    <AREA SHAPE="RECT" COORDS="124, 281, 161, 307" HREF="face.html?lips=19" class="choice" choice="19" item="lip">
+    <AREA SHAPE="RECT" COORDS="126, 307, 161, 325" HREF="face.html?lips=18" class="choice" choice="18" item="lip">
+    <AREA SHAPE="RECT" COORDS="126, 325, 159, 343" HREF="face.html?lips=17" class="choice" choice="17" item="lip">
+    <AREA SHAPE="RECT" COORDS="128, 343, 158, 367" HREF="face.html?lips=16" class="choice" choice="16" item="lip">
+    <AREA SHAPE="RECT" COORDS="44, 341, 82, 363" HREF="face.html?lips=15" class="choice" choice="15" item="lip">
+    <AREA SHAPE="RECT" COORDS="86, 183, 119, 201" HREF="face.html?lips=14" class="choice" choice="14" item="lip">
+    <AREA SHAPE="RECT" COORDS="86, 202, 122, 219" HREF="face.html?lips=13" class="choice" choice="13" item="lip">
+    <AREA SHAPE="RECT" COORDS="86, 221, 123, 235" HREF="face.html?lips=12" class="choice" choice="12" item="lip">
+    <AREA SHAPE="RECT" COORDS="85, 235, 120, 254" HREF="face.html?lips=11" class="choice" choice="11" item="lip">
+    <AREA SHAPE="RECT" COORDS="88, 254, 120, 272" HREF="face.html?lips=10" class="choice" choice="10" item="lip">
+    <AREA SHAPE="RECT" COORDS="88, 272, 119, 288" HREF="face.html?lips=9" class="choice" choice="9" item="lip">
+    <AREA SHAPE="RECT" COORDS="87, 288, 120, 303" HREF="face.html?lips=8" class="choice" choice="8" item="lip">
+    <AREA SHAPE="RECT" COORDS="86, 303, 120, 322" HREF="face.html?lips=7" class="choice" choice="7" item="lip">
+    <AREA SHAPE="RECT" COORDS="87, 325, 120, 347" HREF="face.html?lips=6" class="choice" choice="6" item="lip">
+    <AREA SHAPE="RECT" COORDS="89, 346, 119, 366" HREF="face.html?lips=5" class="choice" choice="5" item="lip">
+    <AREA SHAPE="RECT" COORDS="47, 192, 83, 218" HREF="face.html?lips=4" class="choice" choice="4" item="lip">
+    <AREA SHAPE="RECT" COORDS="44, 220, 82, 242" HREF="face.html?lips=3" class="choice" choice="3" item="lip">
+    <AREA SHAPE="RECT" COORDS="47, 244, 79, 272" HREF="face.html?lips=2" class="choice" choice="2" item="lip">
+    <AREA SHAPE="RECT" COORDS="44, 275, 81, 294" HREF="face.html?lips=1" class="choice" choice="1" item="lip">
+    <AREA SHAPE="RECT" COORDS="43, 294, 80, 312" HREF="face.html?lips=30" class="choice" choice="30" item="lip">
+    <AREA SHAPE="RECT" COORDS="4, 186, 39, 206" HREF="face.html?lips=38" class="choice" choice="38" item="lip">
+    <AREA SHAPE="RECT" COORDS="3, 208, 40, 230" HREF="face.html?lips=37" class="choice" choice="37" item="lip">
+    <AREA SHAPE="RECT" COORDS="4, 231, 41, 254" HREF="face.html?lips=36" class="choice" choice="36" item="lip">
+    <AREA SHAPE="RECT" COORDS="4, 255, 40, 281" HREF="face.html?lips=35" class="choice" choice="35" item="lip">
+    <AREA SHAPE="RECT" COORDS="4, 281, 40, 295" HREF="face.html?lips=34" class="choice" choice="34" item="lip">
+    <AREA SHAPE="RECT" COORDS="5, 294, 38, 312" HREF="face.html?lips=33" class="choice" choice="33" item="lip">
+    <AREA SHAPE="RECT" COORDS="3, 313, 41, 333" HREF="face.html?lips=32" class="choice" choice="32" item="lip">
+    <AREA SHAPE="RECT" COORDS="4, 333, 40, 358" HREF="face.html?lips=31" class="choice" choice="31" item="lip">
+    <AREA SHAPE="RECT" COORDS="167, 193, 197, 215" HREF="face.html?lips=29" class="choice" choice="29" item="lip">
+    <AREA SHAPE="RECT" COORDS="124, 164, 162, 190" HREF="face.html?lips=47" class="choice" choice="47" item="lip">
+    <AREA SHAPE="RECT" COORDS="123, 140, 162, 163" HREF="face.html?lips=48" class="choice" choice="48" item="lip">
+    <AREA SHAPE="RECT" COORDS="124, 112, 165, 138" HREF="face.html?lips=49" class="choice" choice="49" item="lip">
+    <AREA SHAPE="RECT" COORDS="164, 171, 199, 193" HREF="face.html?lips=39" class="choice" choice="39" item="lip">
+    <AREA SHAPE="RECT" COORDS="167, 144, 199, 170" HREF="face.html?lips=40" class="choice" choice="40" item="lip">
+    <AREA SHAPE="RECT" COORDS="167, 122, 196, 143" HREF="face.html?lips=41" class="choice" choice="41" item="lip">
+    <AREA SHAPE="RECT" COORDS="170, 99, 197, 122" HREF="face.html?lips=42" class="choice" choice="42" item="lip">
+    <AREA SHAPE="RECT" COORDS="168, 74, 196, 98" HREF="face.html?lips=43" class="choice" choice="43" item="lip">
+    <AREA SHAPE="RECT" COORDS="166, 46, 195, 71" HREF="face.html?lips=44" class="choice" choice="44" item="lip">
+    <AREA SHAPE="RECT" COORDS="164, 24, 198, 44" HREF="face.html?lips=45" class="choice" choice="45" item="lip">
+    <AREA SHAPE="RECT" COORDS="161, 2, 199, 23" HREF="face.html?lips=46" class="choice" choice="46" item="lip">
+    <AREA SHAPE="RECT" COORDS="49, 165, 79, 185" HREF="face.html?lips=62" class="choice" choice="62" item="lip">
+    <AREA SHAPE="RECT" COORDS="47, 134, 80, 163" HREF="face.html?lips=63" class="choice" choice="63" item="lip">
+    <AREA SHAPE="RECT" COORDS="46, 109, 82, 134" HREF="face.html?lips=64" class="choice" choice="64" item="lip">
+    <AREA SHAPE="RECT" COORDS="47, 85, 81, 106" HREF="face.html?lips=65" class="choice" choice="65" item="lip">
+    <AREA SHAPE="RECT" COORDS="47, 58, 82, 79" HREF="face.html?lips=66" class="choice" choice="66" item="lip">
+    <AREA SHAPE="RECT" COORDS="46, 30, 84, 57" HREF="face.html?lips=67" class="choice" choice="67" item="lip">
+    <AREA SHAPE="RECT" COORDS="85, 153, 120, 181" HREF="face.html?lips=55" class="choice" choice="55" item="lip">
+    <AREA SHAPE="RECT" COORDS="87, 131, 123, 147" HREF="face.html?lips=56" class="choice" choice="56" item="lip">
+    <AREA SHAPE="RECT" COORDS="88, 118, 123, 132" HREF="face.html?lips=57" class="choice" choice="57" item="lip">
+    <AREA SHAPE="RECT" COORDS="90, 102, 123, 119" HREF="face.html?lips=58" class="choice" choice="58" item="lip">
+    <AREA SHAPE="RECT" COORDS="91, 69, 123, 102" HREF="face.html?lips=59" class="choice" choice="59" item="lip">
+    <AREA SHAPE="RECT" COORDS="91, 36, 124, 64" HREF="face.html?lips=60" class="choice" choice="60" item="lip">
+    <AREA SHAPE="RECT" COORDS="88, 0, 127, 29" HREF="face.html?lips=61" class="choice" choice="61" item="lip">
+    <AREA SHAPE="RECT" COORDS="128, 81, 159, 110" HREF="face.html?lips=50" class="choice" choice="50" item="lip">
+    <AREA SHAPE="RECT" COORDS="130, 57, 160, 80" HREF="face.html?lips=51" class="choice" choice="51" item="lip">
+    <AREA SHAPE="RECT" COORDS="130, 39, 155, 58" HREF="face.html?lips=52" class="choice" choice="52" item="lip">
+    <AREA SHAPE="RECT" COORDS="130, 23, 157, 40" HREF="face.html?lips=53" class="choice" choice="53" item="lip">
+    <AREA SHAPE="RECT" COORDS="131, 0, 158, 24" HREF="face.html?lips=54" class="choice" choice="54" item="lip">
+    <AREA SHAPE="RECT" COORDS="47, 2, 85, 30" HREF="face.html?lips=68" class="choice" choice="68" item="lip">
+    <AREA SHAPE="RECT" COORDS="8, 167, 39, 187" HREF="face.html?lips=69" class="choice" choice="69" item="lip">
+    <AREA SHAPE="RECT" COORDS="3, 138, 43, 169" HREF="face.html?lips=70" class="choice" choice="70" item="lip">
+    <AREA SHAPE="RECT" COORDS="5, 110, 39, 138" HREF="face.html?lips=71" class="choice" choice="71" item="lip">
+    <AREA SHAPE="RECT" COORDS="4, 86, 40, 104" HREF="face.html?lips=72" class="choice" choice="72" item="lip">
+    <AREA SHAPE="RECT" COORDS="3, 54, 43, 86" HREF="face.html?lips=73" class="choice" choice="73" item="lip">
+    <AREA SHAPE="RECT" COORDS="2, 26, 44, 51" HREF="face.html?lips=74" class="choice" choice="74" item="lip">
+    <AREA SHAPE="RECT" COORDS="2, 0, 46, 28" HREF="face.html?lips=75" class="choice" choice="75" item="lip">
+</MAP><img src="/images/character/index/lips_200.gif" width="200" height="369" border="0" usemap="#MouthMap">
+    </div>
+    <div id="tab5" class="tab_content">
+<MAP NAME="NoseMap">
+    <AREA SHAPE="RECT" COORDS="167, 168, 199, 197" HREF="face.html?nose=6" class="choice" choice="6" item="nose">
+    <AREA SHAPE="RECT" COORDS="166, 136, 199, 168" HREF="face.html?nose=7" class="choice" choice="7" item="nose">
+    <AREA SHAPE="RECT" COORDS="169, 112, 199, 133" HREF="face.html?nose=8" class="choice" choice="8" item="nose">
+    <AREA SHAPE="RECT" COORDS="165, 90, 199, 110" HREF="face.html?nose=9" class="choice" choice="9" item="nose">
+    <AREA SHAPE="RECT" COORDS="168, 61, 199, 89" HREF="face.html?nose=1" class="choice" choice="1" item="nose">
+    <AREA SHAPE="RECT" COORDS="167, 36, 199, 63" HREF="face.html?nose=2" class="choice" choice="2" item="nose">
+    <AREA SHAPE="RECT" COORDS="171, 4, 198, 36" HREF="face.html?nose=3" class="choice" choice="3" item="nose">
+    <AREA SHAPE="RECT" COORDS="123, 182, 156, 198" HREF="face.html?nose=5" class="choice" choice="5" item="nose">
+    <AREA SHAPE="RECT" COORDS="122, 162, 158, 183" HREF="face.html?nose=10" class="choice" choice="10" item="nose">
+    <AREA SHAPE="RECT" COORDS="120, 135, 156, 160" HREF="face.html?nose=11" class="choice" choice="11" item="nose">
+    <AREA SHAPE="RECT" COORDS="121, 107, 158, 135" HREF="face.html?nose=13" class="choice" choice="13" item="nose">
+    <AREA SHAPE="RECT" COORDS="121, 84, 158, 109" HREF="face.html?nose=14" class="choice" choice="14" item="nose">
+    <AREA SHAPE="RECT" COORDS="121, 53, 159, 85" HREF="face.html?nose=15" class="choice" choice="15" item="nose">
+    <AREA SHAPE="RECT" COORDS="119, 26, 162, 53" HREF="face.html?nose=16" class="choice" choice="16" item="nose">
+    <AREA SHAPE="RECT" COORDS="121, 0, 160, 27" HREF="face.html?nose=17" class="choice" choice="17" item="nose">
+    <AREA SHAPE="RECT" COORDS="80, 171, 113, 196" HREF="face.html?nose=18" class="choice" choice="18" item="nose">
+    <AREA SHAPE="RECT" COORDS="81, 137, 113, 168" HREF="face.html?nose=19" class="choice" choice="19" item="nose">
+    <AREA SHAPE="RECT" COORDS="81, 110, 114, 136" HREF="face.html?nose=20" class="choice" choice="20" item="nose">
+    <AREA SHAPE="RECT" COORDS="81, 75, 115, 106" HREF="face.html?nose=21" class="choice" choice="21" item="nose">
+    <AREA SHAPE="RECT" COORDS="81, 54, 113, 75" HREF="face.html?nose=22" class="choice" choice="22" item="nose">
+    <AREA SHAPE="RECT" COORDS="81, 29, 115, 54" HREF="face.html?nose=23" class="choice" choice="23" item="nose">
+    <AREA SHAPE="RECT" COORDS="81, 1, 114, 29" HREF="face.html?nose=24" class="choice" choice="24" item="nose">
+    <AREA SHAPE="RECT" COORDS="40, 176, 76, 198" HREF="face.html?nose=4" class="choice" choice="4" item="nose">
+    <AREA SHAPE="RECT" COORDS="42, 144, 75, 176" HREF="face.html?nose=25" class="choice" choice="25" item="nose">
+    <AREA SHAPE="RECT" COORDS="39, 118, 75, 145" HREF="face.html?nose=26" class="choice" choice="26" item="nose">
+    <AREA SHAPE="RECT" COORDS="39, 88, 71, 116" HREF="face.html?nose=27" class="choice" choice="27" item="nose">
+    <AREA SHAPE="RECT" COORDS="40, 62, 69, 87" HREF="face.html?nose=28" class="choice" choice="28" item="nose">
+    <AREA SHAPE="RECT" COORDS="39, 31, 71, 63" HREF="face.html?nose=29" class="choice" choice="29" item="nose">
+    <AREA SHAPE="RECT" COORDS="41, 0, 72, 30" HREF="face.html?nose=30" class="choice" choice="30" item="nose">
+    <AREA SHAPE="RECT" COORDS="4, 166, 33, 197" HREF="face.html?nose=31" class="choice" choice="31" item="nose">
+    <AREA SHAPE="RECT" COORDS="0, 138, 32, 166" HREF="face.html?nose=32" class="choice" choice="32" item="nose">
+    <AREA SHAPE="RECT" COORDS="0, 112, 33, 137" HREF="face.html?nose=33" class="choice" choice="33" item="nose">
+    <AREA SHAPE="RECT" COORDS="1, 93, 33, 112" HREF="face.html?nose=34" class="choice" choice="34" item="nose">
+    <AREA SHAPE="RECT" COORDS="3, 64, 32, 91" HREF="face.html?nose=35" class="choice" choice="35" item="nose">
+    <AREA SHAPE="RECT" COORDS="3, 35, 31, 61" HREF="face.html?nose=36" class="choice" choice="36" item="nose">
+    <AREA SHAPE="RECT" COORDS="4, 0, 35, 31" HREF="face.html?nose=37" class="choice" choice="37" item="nose">
+</MAP><img src="/images/character/index/noses_200.gif" alt="" border="0" width="200" height="200" usemap="#NoseMap">
+    </div>    
+    <div id="tab6" class="tab_content">
+<MAP NAME="EarMap">
+    <AREA SHAPE="RECT" COORDS="106, 160, 153, 191" HREF="face.html?ears=1" class="choice" choice="1" item="ear">
+    <AREA SHAPE="RECT" COORDS="156, 150, 198, 184" HREF="face.html?ears=2" class="choice" choice="2" item="ear">
+    <AREA SHAPE="RECT" COORDS="154, 118, 199, 148" HREF="face.html?ears=3" class="choice" choice="3" item="ear">
+    <AREA SHAPE="RECT" COORDS="156, 66, 199, 107" HREF="face.html?ears=4" class="choice" choice="4" item="ear">
+    <AREA SHAPE="RECT" COORDS="156, 10, 199, 57" HREF="face.html?ears=5" class="choice" choice="5" item="ear">
+    <AREA SHAPE="RECT" COORDS="106, 126, 151, 160" HREF="face.html?ears=6" class="choice" choice="6" item="ear">
+    <AREA SHAPE="RECT" COORDS="105, 87, 150, 120" HREF="face.html?ears=7" class="choice" choice="7" item="ear">
+    <AREA SHAPE="RECT" COORDS="106, 53, 150, 80" HREF="face.html?ears=8" class="choice" choice="8" item="ear">
+    <AREA SHAPE="RECT" COORDS="106, 6, 152, 44" HREF="face.html?ears=9" class="choice" choice="9" item="ear">
+    <AREA SHAPE="RECT" COORDS="3, 3, 47, 36" HREF="face.html?ears=19" class="choice" choice="19" item="ear">
+    <AREA SHAPE="RECT" COORDS="4, 42, 48, 76" HREF="face.html?ears=18" class="choice" choice="18" item="ear">
+    <AREA SHAPE="RECT" COORDS="3, 80, 47, 120" HREF="face.html?ears=17" class="choice" choice="17" item="ear">
+    <AREA SHAPE="RECT" COORDS="3, 121, 47, 157" HREF="face.html?ears=16" class="choice" choice="16" item="ear">
+    <AREA SHAPE="RECT" COORDS="5, 162, 47, 192" HREF="face.html?ears=15" class="choice" choice="15" item="ear">
+    <AREA SHAPE="RECT" COORDS="53, 5, 99, 33" HREF="face.html?ears=14" class="choice" choice="14" item="ear">
+    <AREA SHAPE="RECT" COORDS="50, 37, 103, 75" HREF="face.html?ears=13" class="choice" choice="13" item="ear">
+    <AREA SHAPE="RECT" COORDS="55, 83, 97, 115" HREF="face.html?ears=12" class="choice" choice="12" item="ear">
+    <AREA SHAPE="RECT" COORDS="50, 119, 99, 157" HREF="face.html?ears=11" class="choice" choice="11" item="ear">
+    <AREA SHAPE="RECT" COORDS="54, 161, 100, 197" HREF="face.html?ears=10" class="choice" choice="10" item="ear">
+</MAP><img src="/images/character/index/ears_200.gif" alt="" width="200" height="200" border="0" usemap="#EarMap">
+    </div>
+</div><!-- /tab_container -->
+</div><!-- /tabs -->
+</div><!-- /panel-choice -->
+</div><!-- /panel-content -->
+</div><!-- /panel -->
+ 
+</div><!-- /content -->
+
+</body>
+</html>

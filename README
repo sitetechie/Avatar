@@ -1,0 +1,7 @@
+A nifty Avatar application, in use at http://sitetechie.com
+
+Make sure you have Plack, Moose and GD installed, and run:
+
+  plackup
+
+Then visit http://localhost:5000/
