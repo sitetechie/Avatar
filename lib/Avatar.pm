@@ -20,139 +20,139 @@ use Cwd;
 my $face_coords = {
         # dstX,dstY,srcX,srcY,width,height
         99 => {
-        	eyes => [33,34,0,0,108,42],
-        	earl => [7,52,0,0,29,64],
-        	earr => [136,52,0,0,29,64],
+            eyes => [33,34,0,0,108,42],
+            earl => [7,52,0,0,29,64],
+            earr => [136,52,0,0,29,64],
             nose => [63,53,0,0,48,61],
-        	lips => [49,102,0,0,76,55]
+            lips => [49,102,0,0,76,55]
             },
         1 => {
-        	eyes => [33,32,0,0,108,42],
-        	earl => [5,50,0,0,29,64],
-        	earr => [137,50,0,0,29,64],
+            eyes => [33,32,0,0,108,42],
+            earl => [5,50,0,0,29,64],
+            earr => [137,50,0,0,29,64],
             nose => [63,47,0,0,48,61],
-        	lips => [49,100,0,0,76,55]
+            lips => [49,100,0,0,76,55]
             },
         2 => {
-        	eyes => [33,38,0,0,108,42],
-        	earl => [7,32,0,0,29,64],
-        	earr => [139,34,0,0,29,64],
+            eyes => [33,38,0,0,108,42],
+            earl => [7,32,0,0,29,64],
+            earr => [139,34,0,0,29,64],
             nose => [63,52,0,0,48,61],
-        	lips => [49,99,0,0,76,55]
+            lips => [49,99,0,0,76,55]
             },
         3 => {
-        	eyes => [32,52,0,0,108,42],
-        	earl => [13,57,0,0,29,64],
-        	earr => [129,57,0,0,29,64],
-        	nose => [63,67,0,0,48,61],
-        	lips => [49,111,0,0,76,55]
+            eyes => [32,52,0,0,108,42],
+            earl => [13,57,0,0,29,64],
+            earr => [129,57,0,0,29,64],
+            nose => [63,67,0,0,48,61],
+            lips => [49,111,0,0,76,55]
             },
         4 => {
-        	eyes => [33,34,0,0,108,42],
-        	earl => [7,52,0,0,29,64],
-        	earr => [136,52,0,0,29,64],
+            eyes => [33,34,0,0,108,42],
+            earl => [7,52,0,0,29,64],
+            earr => [136,52,0,0,29,64],
             nose => [63,53,0,0,48,61],
-        	lips => [49,102,0,0,76,55]
+            lips => [49,102,0,0,76,55]
             },
         5 => {
-        	eyes => [33,34,0,0,108,42],
-        	earl => [8,52,0,0,29,64],
-        	earr => [137,52,0,0,29,64],
+            eyes => [33,34,0,0,108,42],
+            earl => [8,52,0,0,29,64],
+            earr => [137,52,0,0,29,64],
             nose => [63,54,0,0,48,61],
-        	lips => [49,104,0,0,76,55]
+            lips => [49,104,0,0,76,55]
             },
         6 => {
-        	eyes => [33,36,0,0,108,42],
-        	earl => [7,50,0,0,29,64],
-        	earr => [134,50,0,0,29,64],
+            eyes => [33,36,0,0,108,42],
+            earl => [7,50,0,0,29,64],
+            earr => [134,50,0,0,29,64],
             nose => [63,54,0,0,48,61],
-        	lips => [49,104,0,0,76,55]
+            lips => [49,104,0,0,76,55]
             },
         7 => {
-        	eyes => [33,30,0,0,108,42],
-        	earl => [2,46,0,0,29,64],
-        	earr => [143,46,0,0,29,64],
+            eyes => [33,30,0,0,108,42],
+            earl => [2,46,0,0,29,64],
+            earr => [143,46,0,0,29,64],
             nose => [63,48,0,0,48,61],
-        	lips => [49,100,0,0,76,55]
+            lips => [49,100,0,0,76,55]
             },
         8 => {
-        	eyes => [34,52,0,0,108,42],
-        	earl => [4,57,0,0,29,64],
-        	earr => [142,57,0,0,29,64],
-        	nose => [64,67,0,0,48,61],
-        	lips => [51,106,0,0,76,55]
+            eyes => [34,52,0,0,108,42],
+            earl => [4,57,0,0,29,64],
+            earr => [142,57,0,0,29,64],
+            nose => [64,67,0,0,48,61],
+            lips => [51,106,0,0,76,55]
             },
         9 => {
-        	eyes => [33,36,0,0,108,42],
-        	earl => [5,50,0,0,29,64],
-        	earr => [137,50,0,0,29,64],
+            eyes => [33,36,0,0,108,42],
+            earl => [5,50,0,0,29,64],
+            earr => [137,50,0,0,29,64],
             nose => [63,53,0,0,48,61],
-        	lips => [49,104,0,0,76,55]
+            lips => [49,104,0,0,76,55]
             },
         10 => {
-        	eyes => [37,50,0,0,108,42],
-        	earl => [18,57,0,0,29,64],
-        	earr => [134,57,0,0,29,64],
-        	nose => [66,68,0,0,48,61],
-        	lips => [54,108,0,0,76,55]
+            eyes => [37,50,0,0,108,42],
+            earl => [18,57,0,0,29,64],
+            earr => [134,57,0,0,29,64],
+            nose => [66,68,0,0,48,61],
+            lips => [54,108,0,0,76,55]
             },
         11 => {
-        	eyes => [33,38,0,0,108,42],
-        	earl => [11,50,0,0,29,64],
-        	earr => [131,50,0,0,29,64],
+            eyes => [33,38,0,0,108,42],
+            earl => [11,50,0,0,29,64],
+            earr => [131,50,0,0,29,64],
             nose => [63,54,0,0,48,61],
-        	lips => [49,104,0,0,76,55]
+            lips => [49,104,0,0,76,55]
             },
         12 => {
-        	eyes => [32,52,0,0,108,42],
-        	earl => [9,57,0,0,29,64],
-        	earr => [132,57,0,0,29,64],
-        	nose => [63,67,0,0,48,61],
-        	lips => [49,111,0,0,76,55]
+            eyes => [32,52,0,0,108,42],
+            earl => [9,57,0,0,29,64],
+            earr => [132,57,0,0,29,64],
+            nose => [63,67,0,0,48,61],
+            lips => [49,111,0,0,76,55]
             },
         13 => {
-        	eyes => [33,57,0,0,108,42],
-        	earl => [14,57,0,0,29,64],
-        	earr => [130,57,0,0,29,64],
-        	nose => [62,73,0,0,48,61],
-        	lips => [50,111,0,0,76,55]
+            eyes => [33,57,0,0,108,42],
+            earl => [14,57,0,0,29,64],
+            earr => [130,57,0,0,29,64],
+            nose => [62,73,0,0,48,61],
+            lips => [50,111,0,0,76,55]
             },
 
         14 => {
-        	eyes => [32,56,0,0,108,42],
-        	earl => [9,57,0,0,29,64],
-        	earr => [134,57,0,0,29,64],
-        	nose => [63,68,0,0,48,61],
-        	lips => [49,111,0,0,76,55]
+            eyes => [32,56,0,0,108,42],
+            earl => [9,57,0,0,29,64],
+            earr => [134,57,0,0,29,64],
+            nose => [63,68,0,0,48,61],
+            lips => [49,111,0,0,76,55]
             },
         15 => {
-        	eyes => [34,62,0,0,108,42],
-        	earl => [13,57,0,0,29,64],
-        	earr => [129,57,0,0,29,64],
-        	nose => [63,73,0,0,48,61],
-        	lips => [49,111,0,0,76,55]
+            eyes => [34,62,0,0,108,42],
+            earl => [13,57,0,0,29,64],
+            earr => [129,57,0,0,29,64],
+            nose => [63,73,0,0,48,61],
+            lips => [49,111,0,0,76,55]
             },
 
         16 => {
-        	eyes => [34,64,0,0,108,42],
-        	earl => [13,57,0,0,29,64],
-        	earr => [131,57,0,0,29,64],
-        	nose => [63,73,0,0,48,61],
-        	lips => [49,111,0,0,76,55]
+            eyes => [34,64,0,0,108,42],
+            earl => [13,57,0,0,29,64],
+            earr => [131,57,0,0,29,64],
+            nose => [63,73,0,0,48,61],
+            lips => [49,111,0,0,76,55]
             },
         17 => {
-        	eyes => [34,54,0,0,108,42],
-        	earl => [11,57,0,0,29,64],
-        	earr => [136,57,0,0,29,64],
-        	nose => [63,66,0,0,48,61],
-        	lips => [49,111,0,0,76,55]
+            eyes => [34,54,0,0,108,42],
+            earl => [11,57,0,0,29,64],
+            earr => [136,57,0,0,29,64],
+            nose => [63,66,0,0,48,61],
+            lips => [49,111,0,0,76,55]
             },
         18 => {
-        	eyes => [34,56,0,0,108,42],
-        	earl => [13,57,0,0,29,64],
-        	earr => [134,57,0,0,29,64],
-        	nose => [63,67,0,0,48,61],
-        	lips => [49,111,0,0,76,55]
+            eyes => [34,56,0,0,108,42],
+            earl => [13,57,0,0,29,64],
+            earr => [134,57,0,0,29,64],
+            nose => [63,67,0,0,48,61],
+            lips => [49,111,0,0,76,55]
             },
 
         };
@@ -205,28 +205,28 @@ sub _build_tiles {
         $id ||= 99;
         my $face = "$dir/faces/face" . $id . '.gif';
         open (my $fh, '<', "$face") || die("cannot open $face file");
-    	my $img = newFromGif GD::Image($fh);
-	    close $fh;
-    	$faces->{$id} = $img;
-	    }
+        my $img = newFromGif GD::Image($fh);
+        close $fh;
+        $faces->{$id} = $img;
+        }
     # eyes
     foreach my $id(0..68) {
         $id ||= 99;
         my $src = "$dir/eyes/eyes" . $id . '.gif';
         open (my $fh, '<', "$src") || die("cannot open $src file");
-	    my $img = newFromGif GD::Image($fh);
-    	close $fh;
-	    $eyes->{$id} = $img;
-    	}
+        my $img = newFromGif GD::Image($fh);
+        close $fh;
+        $eyes->{$id} = $img;
+        }
     # lips
     foreach my $id(0..75) {
         $id ||= 99;
         my $src = "$dir/lips/lips" . $id . '.gif';
         open (my $fh, '<', "$src") || die("cannot open $src file");
-	    my $img = newFromGif GD::Image($fh);
-    	close $fh;
-	    $lips->{$id} = $img;
-    	}
+        my $img = newFromGif GD::Image($fh);
+        close $fh;
+        $lips->{$id} = $img;
+        }
     # noses
     foreach my $id(0..37) {
         next if $id == 12;
@@ -234,26 +234,26 @@ sub _build_tiles {
         my $src = "$dir/noses/nose" . $id . '.gif';
         open (my $fh, '<', "$src") || die("cannot open $src file");
         my $img = newFromGif GD::Image($fh);
-    	close $fh;
-	    $noses->{$id} = $img;
-    	}
+        close $fh;
+        $noses->{$id} = $img;
+        }
     # ears
     foreach my $id(0..19) {
         $id ||= 99;
         my $src = "$dir/earsl/ear" . $id . '.gif';
         open (my $fh, '<', "$src") || die("cannot open $src file");
-	    my $img = newFromGif GD::Image($fh);
-    	close $fh;
-	    $earsl->{$id} = $img;
-    	}
+        my $img = newFromGif GD::Image($fh);
+        close $fh;
+        $earsl->{$id} = $img;
+        }
     foreach my $id(0..19) {
         $id ||= 99;
         my $src = "$dir/earsr/ear" . $id . '.gif';
         open (my $fh, '<', "$src") || die("cannot open $src file");
-	    my $img = newFromGif GD::Image($fh);
-    	close $fh;
-	    $earsr->{$id} = $img;
-    	}
+        my $img = newFromGif GD::Image($fh);
+        close $fh;
+        $earsr->{$id} = $img;
+        }
     return {
         necks => $necks,
         faces => $faces,
@@ -307,12 +307,19 @@ sub call {
         return $res->finalize;
         }
     else {
-        $res->header('Expires' => 'Fri, 30 Oct 1998 14:19:41 GMT');
-        $res->header('Pragma' => 'no-cache');
-        $res->header('Cache-Control' => 'no-cache');
+        _no_cache($res);        
         $res->redirect($url, 302);
         return $res->finalize;
         }
+    }
+
+sub _no_cache {
+    my $res = shift;
+    
+    $res->header('Expires' => 'Fri, 30 Oct 1998 14:19:41 GMT'); # Proxies
+    $res->header('Pragma' => 'no-cache'); # HTTP 1.0
+    $res->header('Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0'); # HTTP 1.1
+    # might also need: private, max-stale=0, post-check=0, pre-check=0
     }
 
 sub gen_image {
@@ -327,26 +334,26 @@ sub gen_image {
     my $newgif = $self->target_dir . '/'. $id . '.gif';
     return $id if -f $newgif;
 
-	my (@earl_c, @earr_c, @nose_c, @lips_c, @eye_c);
-	@eye_c 	= @{$face_coords->{$face}->{eyes}};
-	@lips_c = @{$face_coords->{$face}->{lips}};
-	@nose_c = @{$face_coords->{$face}->{nose}};
-	@earl_c = @{$face_coords->{$face}->{earl}} if ($face_coords->{$face}->{earl});
-	@earr_c = @{$face_coords->{$face}->{earr}} if ($face_coords->{$face}->{earr});
+    my (@earl_c, @earr_c, @nose_c, @lips_c, @eye_c);
+    @eye_c  = @{$face_coords->{$face}->{eyes}};
+    @lips_c = @{$face_coords->{$face}->{lips}};
+    @nose_c = @{$face_coords->{$face}->{nose}};
+    @earl_c = @{$face_coords->{$face}->{earl}} if ($face_coords->{$face}->{earl});
+    @earr_c = @{$face_coords->{$face}->{earr}} if ($face_coords->{$face}->{earr});
     
     my $tiles = $self->tiles;
     my $img = $tiles->{necks}->{$neck}->clone();
     $img->copy($tiles->{lips}->{$lip}, @lips_c);
-	$img->copy($tiles->{noses}->{$nose}, @nose_c);
+    $img->copy($tiles->{noses}->{$nose}, @nose_c);
     $img->copy($tiles->{faces}->{$face},0,0,0,0,170,240);
     $img->copy($tiles->{earsl}->{$ear}, @earl_c) if ($#earl_c > 0);
     $img->copy($tiles->{earsr}->{$ear}, @earr_c) if ($#earr_c > 0);
     $img->copy($tiles->{eyes}->{$eye}, @eye_c);
 
-	open (DISPLAY, '>', $newgif) || die ("something wrong with $newgif");
-	binmode DISPLAY;
-	print DISPLAY $img->gif;
-	close DISPLAY;
+    open (DISPLAY, '>', $newgif) || die ("something wrong with $newgif");
+    binmode DISPLAY;
+    print DISPLAY $img->gif;
+    close DISPLAY;
     die("File $newgif NotFound") unless -f $newgif;
     
     return $id;
